@@ -1,0 +1,239 @@
+package seleniumWebdriver.unboxingAndreea;
+
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import utils.BaseTestClass;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
+
+
+
+public class AutomatedTests extends BaseTestClass {
+
+
+    @Test
+
+    public void Register() throws InterruptedException {
+
+
+        WebElement registerButton = driver.findElement(By.xpath(("//div[normalize-space()='Register']")));
+        registerButton.click();
+
+        WebElement firstName = driver.findElement(By.xpath("//*[@placeholder='Enter your First Name']"));
+        firstName.sendKeys("Mihai");
+
+        WebElement lastName = driver.findElement(By.xpath("//*[@placeholder='Enter your Last Name']"));
+        lastName.sendKeys("Elena");
+
+        WebElement email = driver.findElement(By.xpath("//*[@placeholder='Enter your email']"));
+        email.sendKeys("1233Test12@test");
+
+        WebElement password = driver.findElement(By.xpath("//*[@placeholder='Enter your password']"));
+        password.sendKeys("1233Test12");
+
+        WebElement confirmPassword = driver.findElement(By.xpath("//*[@placeholder='Confirm password']"));
+        confirmPassword.sendKeys("1233Test12");
+
+
+        WebElement countrySelect = driver.findElement(By.xpath("/html/body/div/div/div/form/div[4]/div/div[1]/div[2]/input"));
+
+        countrySelect.click();
+
+        countrySelect.sendKeys(("Romania"));
+
+        driver.findElement(By.xpath("//*[text()='Romania']")).click();
+
+
+        WebElement city = driver.findElement(By.xpath("//*[@placeholder='City']"));
+        city.sendKeys("Iasi");
+
+        WebElement address1 = driver.findElement(By.xpath("//*[@placeholder='Address 1']"));
+        address1.sendKeys("strada Rozelor");
+
+        WebElement address2 = driver.findElement(By.xpath("//*[@placeholder='Address 2']"));
+        address2.sendKeys("strada Eternitatii");
+
+
+        WebElement genderSelect = driver.findElement(By.xpath("/html/body/div/div/div/form/div[5]/div/div[1]/div[2]/input"));
+
+        genderSelect.click();
+
+        genderSelect.sendKeys(("Male"));
+
+        driver.findElement(By.xpath("//*[text()='Male']")).click();
+
+
+        WebElement dateOfBirth = driver.findElement(By.xpath("//*[@id=\"__next\"]/div/div/form/input[9]"));
+        dateOfBirth.click();
+        dateOfBirth.sendKeys("12121994");
+
+
+        WebElement nationality = driver.findElement(By.xpath("//input[@placeholder='Nationality']"));
+        nationality.sendKeys("roman");
+
+        WebElement register = driver.findElement(By.xpath("//button[normalize-space()='Register']"));
+        register.click();
+
+        System.out.println("Welcome, Mihai Elena!");
+    }
+
+    @Test
+    public void iconFunctionality() throws InterruptedException {
+
+
+
+        WebElement hotel = driver.findElement(By.xpath("//*[@id=\"__next\"]/div/div/div[2]/div[1]/div/div[2]/div[1]"));
+        hotel.click();
+        Thread.sleep(5000);
+        WebElement bookingApplicationIcon = driver.findElement(By.xpath("//div[@class='pl-1 font-bold text-lg']"));
+
+        bookingApplicationIcon.click();
+
+    }
+
+    @Test
+    public void navigateBack() throws InterruptedException {
+
+
+        WebElement registerButton2 = driver.findElement(By.xpath("//*[@id=\"__next\"]/div/div/div[1]/div[1]/header/div/section[2]/div[5]"));
+        registerButton2.click();
+
+        Thread.sleep(5000);
+
+        driver.navigate().back();
+    }
+
+    @Test
+    public void searchFunctionality() throws InterruptedException {
+
+        WebElement searchField = driver.findElement(By.className("sm:text-lg"));
+
+        searchField.sendKeys("Spain");
+        WebElement searchIcon = driver.findElement(By.xpath("//button[@type='submit']"));
+        searchIcon.click();
+        Thread.sleep(5000);
+        WebElement errorMessage = driver.findElement(By.xpath("//div[@class='text-center pt-10 text-xl h-full margin-auto m-4 text-rose-700']"));
+
+        String actualMessage = errorMessage.getText();
+
+        Assert.assertEquals("Your search did not return any results. Adjust the search words and the filters and try again.", actualMessage);
+
+    }
+
+    @Test
+    public void loginMessage() throws InterruptedException {
+
+
+        login();
+        Thread.sleep(5000);
+
+        WebElement welcomeMessage = driver.findElement(By.xpath("(//div[normalize-space()='Welcome, Popescu Serban!'])[1]"));
+        String actualMessage = welcomeMessage.getText();
+        Assert.assertEquals("Welcome, Popescu Serban!", actualMessage);
+
+    }
+
+    @Test
+    public void suggestionsLink() throws InterruptedException {
+
+
+        driver.findElement(By.xpath("(//div[normalize-space()='Suggestions'])[1]")).click();
+        Thread.sleep(5000);
+
+        driver.findElement(By.xpath("//textarea[@class='w-96 h-96 border outline rounded']")).sendKeys("Change the background image");
+
+        driver.findElement(By.xpath("(//button[normalize-space()='Send Feedback'])[1]")).click();
+
+    }
+
+
+    @Test
+    public void clearHistory() throws InterruptedException {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+       login();
+
+        Thread.sleep(1000);
+        driver.navigate().back();
+
+        WebElement hotel1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/div[2]/div[1]/div/div[2]/div[1]")));
+        hotel1.click();
+
+
+        Thread.sleep(1000);
+        driver.navigate().back();
+
+        WebElement hotel2 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/div[2]/div[1]/div/div[2]/div[2]")));
+        hotel2.click();
+        Thread.sleep(1000);
+
+        driver.navigate().back();
+
+
+
+        WebElement clearButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div/div/div/div[2]/div[3]/div/div[1]/button")));
+        clearButton.click();
+        Thread.sleep(1000);
+
+        WebElement navigationMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='text-center pt-4'])[1]")));
+        String actualMessage = navigationMessage.getText();
+
+        Assert.assertEquals("Navigation history is empty...",actualMessage);
+
+    }
+
+    @Test
+    public void bookingRoom() throws InterruptedException {
+
+        login();
+        Thread.sleep(2000);
+
+        driver.navigate().back();
+
+        WebElement hotelBrasov = driver.findElement(By.xpath("(//div[contains(@class,'absolute top-0 flex items-end justify-end rounded-xl hover:transition ease-in-out delay-150 w-full h-full semi-transparent-color')])[3]"));
+        hotelBrasov.click();
+        Thread.sleep(2000);
+
+        WebElement doubleRoom = driver.findElement(By.xpath("(//img[@alt='rounded-xl'])[2]"));
+        doubleRoom.click();
+        Thread.sleep(2000);
+
+
+        driver.findElement(By.xpath("//input[@value='1']")).sendKeys("2");
+        driver.findElement(By.xpath("(//div[normalize-space()='Me'])[1]")).click();
+        driver.findElement(By.xpath("(//input[@placeholder='Enter the full name of the person'])[1]")).sendKeys("Mihai Elena");
+
+        driver.findElement(By.xpath("(//button[normalize-space()='Next step'])[1]")).click();
+
+        driver.findElement((By.xpath("(//input[@value='0'])[1]"))).sendKeys("2");
+        driver.findElement(By.xpath("(//input[@type='date'])[1]")).sendKeys("20122023");
+        driver.findElement(By.xpath("(//input[@type='date'])[2]")).sendKeys("21122023");
+        Thread.sleep(2000);
+
+        driver.findElement(By.xpath("(//button[normalize-space()='Next step'])[1]")).click();
+
+        WebElement paymentSelect = driver.findElement(By.xpath(("(//div[@class=' css-ackcql'])[1]")));
+
+        paymentSelect.click();
+
+        driver.findElement(By.xpath("(//button[normalize-space()='Next step'])[1]")).click();
+
+        driver.findElement(By.xpath("(//button[normalize-space()='Book holiday'])[1]")).click();
+
+        WebElement successMessage = driver.findElement(By.xpath("(//div[normalize-space()='Succes!'])[1]"));
+        String actualMessage = successMessage.getText();
+
+        Assert.assertEquals("Succes!", actualMessage);
+
+
+
+
+    }
+
+
+}
