@@ -1,0 +1,148 @@
+USE cursant;
+
+
+/*SELECT*/
+
+SELECT * FROM TimeInterval
+WHERE "min" = "max";
+
+SELECT * FROM _favorites
+ORDER BY id DESC;
+
+SELECT * FROM _history;
+
+SELECT * FROM Img
+WHERE url LIKE 'https%';
+
+SELECT * FROM Room;
+
+SELECT * FROM Hotel;
+
+SELECT firstName, lastName, address1
+FROM User
+WHERE address1 IS NOT NULL;
+
+SELECT name, starRating, allowsPets
+FROM Hotel
+WHERE starRating > 3
+AND allowsPets = 0;
+
+SELECT breakfastIncluded, id
+FROM Room
+WHERE breakfastIncluded = 1
+LIMIT 10;
+
+SELECT * FROM User
+WHERE "city" = 'Iasi';
+
+SELECT * FROM User
+WHERE address1 = 'null';
+
+SELECT * FROM User
+WHERE address1 = '';
+
+SELECT name, pricePerBreakfast
+FROM Hotel
+WHERE pricePerBreakfast < 100
+ORDER BY pricePerBreakfast ASC;
+
+SELECT ID
+FROM Img
+WHERE id > 10;
+
+SELECT * FROM Room
+WHERE maximumNumberOfGuests > 1
+AND price <= 100;
+
+SELECT id, name, location
+FROM Hotel
+WHERE location IN ('Gura Humorului', 'Brasov');
+
+SELECT * FROM User
+WHERE "firstName" = 'Georgeta';
+
+SELECT DISTINCT location
+FROM Hotel;
+
+/*INSERT*/
+
+INSERT INTO Hotel ("id", "name", "description", "starRating", "userRating", "amenities", "priceperBreakfast", "allowsPets", "breakfastAsOption", "location")
+VALUES (5555555, 'Gheorgheni 3', 'localizat in satul Ghiorgheni', 3, 5, 'wifi, grill', 25, 1, 1, 'Ghiorgheni');
+
+INSERT INTO Hotel ("id", "name", "description", "starRating", "userRating", "amenities", "priceperBreakfast", "allowsPets", "breakfastAsOption", "location")
+VALUES (555566, 'Gheorgheni de sus 2', 'localizat in satul Ghiorghenii de sus', 3, 5, 'wifi, grill, AC', 20, 1, 1, 'Ghiorghenii d sus');
+
+INSERT INTO User ("id","firstName","lastName","email","password","country","city","address1","address2","dateOfBirth","gender","nationality")
+VALUES (3425246375, 'Popescu', 'Dumintru', 'dumi85@gmail.com', 'popiban45', 'Romania', 'Brasov', 'Aviatiei nr 34', 'Florilor nr. 12', '12-05-1997', 'Male', 'romanian');
+
+INSERT INTO Room ("breakfastIncluded", "img", "description", "maximumNumberOfGuests", "price", "type", "hotelId", "id")
+VALUES (1, 'gdfsgr.png', 'double room', 4, 250, 'double', 555555, 6453735);
+
+INSERT INTO Room ("breakfastIncluded", "img", "description", "maximumNumberOfGuests", "price", "type", "hotelId", "id")
+VALUES (0, 'hysdsgr.png', 'double room with mountain view', 4, 250, 'double', 555555, 6453747);
+
+INSERT INTO TimeInterval ("id", "min", "max", "hotelId")
+VALUES (54-57, '2023-12-12', '2023-12-23', 5555555);
+
+INSERT INTO TimeInterval ("id", "min", "max", "hotelId")
+VALUES (55-58, '2023-11-12', '2023-11-23', 555566);
+
+INSERT INTO Img ("url", "id", "hotelId")
+VALUES ('https://www.bing.com/images/search?view=detailV2&ccid', '102549', '789');
+
+INSERT INTO User ("id","firstName","lastName","email","password","country","city","address1","address2","dateOfBirth","gender","nationality")
+VALUES (3425265765, 'Iftimie', 'Cristina', 'cris85@gmail.com', 'ploliopiban45', 'Romania', 'Sibiu', 'Copou nr 34', 'Filarmonica nr. 12', '02-05-1996', 'female', 'romanian');
+
+INSERT INTO User ("id","firstName","lastName","email","password","country","city","address1","address2","dateOfBirth","gender","nationality")
+VALUES (3425254497, 'Lucca', 'Cristina', 'crilgucta85@gmail.com', 'gdfrban45', 'Romania', 'Constanta', 'Cicoarei nr 34', 'Fumului nr. 12', '05-05-1995', 'female', 'romanian');
+
+/*DELETE*/
+
+DELETE FROM Hotel 
+WHERE  "id"='55556';
+
+DELETE FROM Room
+WHERE "id" = '645374';
+
+DELETE FROM _history
+WHERE "id" = '0';
+
+DELETE FROM _favorites
+WHERE "id" = '8';
+
+DELETE FROM Img 
+WHERE "hotelId" = '199604'
+AND "id" = '101';
+
+DELETE FROM User
+WHERE "id" = '3425265748';
+
+/*UPDATE*/
+
+UPDATE Hotel
+SET "amenities"='wifi, grill and pool', "priceperBreakfast"='35'
+WHERE "id" = '55555';
+
+UPDATE TimeInterval
+SET "min" = '2023-11-14'
+WHERE 'hotelId' = '55555';
+
+UPDATE Room
+SET "description"='This room is perfect for a 3 family members'
+WHERE "id" = '645374';
+
+UPDATE Img
+SET "url"='https://www.google.com/search?q=cat&tbm=isch&'
+WHERE "id" = '101';
+
+UPDATE Hotel
+SET "starRating"='3'
+WHERE "id" = '55555';
+
+UPDATE User
+SET "firstName"='Popicici'
+WHERE "id" = '342524637';
+
+UPDATE User
+SET "city" = 'Cluj'
+WHERE "id"='3425254637';
